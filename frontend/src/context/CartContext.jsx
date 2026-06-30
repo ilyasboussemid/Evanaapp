@@ -20,16 +20,20 @@ export function CartProvider({ children }) {
 
   const addToCart = (product, quantity = 1) => {
     const cartKey = `${product.id}-${product.selectedSize || 'none'}-${product.selectedColor || 'none'}`
+    const maxStock = product.selectedSizeStock || product.stock || 99
+
     setCartItems(prev => {
       const existing = prev.find(item => item.cartKey === cartKey)
       if (existing) {
+        const newQty = Math.min(existing.quantity + quantity, maxStock)
+        if (newQty === existing.quantity) return prev
         return prev.map(item =>
           item.cartKey === cartKey
-            ? { ...item, quantity: item.quantity + quantity }
+            ? { ...item, quantity: newQty }
             : item
         )
       }
-      return [...prev, { ...product, cartKey, quantity }]
+      return [...prev, { ...product, cartKey, quantity: Math.min(quantity, maxStock), maxStock }]
     })
   }
 
@@ -44,7 +48,7 @@ export function CartProvider({ children }) {
     }
     setCartItems(prev =>
       prev.map(item =>
-        item.cartKey === cartKey ? { ...item, quantity } : item
+        item.cartKey === cartKey ? { ...item, quantity: Math.min(quantity, item.maxStock || 99) } : item
       )
     )
   }

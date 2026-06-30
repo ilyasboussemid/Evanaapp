@@ -30,6 +30,7 @@ function ProductDetail() {
         ...product,
         price: product.onSale ? product.salePrice : product.price,
         selectedSize: selectedSize ? selectedSize.size : null,
+        selectedSizeStock: selectedSize ? selectedSize.stock : product.stock,
         selectedColor: selectedColor ? selectedColor.name : null,
         selectedColorHex: selectedColor ? selectedColor.hexCode : null
       }

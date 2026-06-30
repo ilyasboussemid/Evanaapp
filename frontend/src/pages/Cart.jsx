@@ -47,8 +47,11 @@ function Cart() {
               <div style={{ display: 'flex', alignItems: 'center', border: '1px solid var(--border)', borderRadius: '999px', overflow: 'hidden' }}>
                 <button onClick={() => updateQuantity(item.cartKey, item.quantity - 1)} style={{ width: 32, height: 32, background: 'var(--surface-muted)', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>-</button>
                 <span style={{ width: 36, textAlign: 'center', fontWeight: 600, fontSize: '0.85rem' }}>{item.quantity}</span>
-                <button onClick={() => updateQuantity(item.cartKey, item.quantity + 1)} style={{ width: 32, height: 32, background: 'var(--surface-muted)', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>+</button>
+                <button onClick={() => updateQuantity(item.cartKey, item.quantity + 1)} disabled={item.quantity >= (item.maxStock || 99)} style={{ width: 32, height: 32, background: item.quantity >= (item.maxStock || 99) ? '#f3f3f3' : 'var(--surface-muted)', border: 'none', cursor: item.quantity >= (item.maxStock || 99) ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', color: item.quantity >= (item.maxStock || 99) ? '#bbb' : 'inherit' }}>+</button>
               </div>
+              {item.quantity >= (item.maxStock || 99) && (
+                <span className="text-xs" style={{ color: 'var(--status-error)', whiteSpace: 'nowrap' }}>Max</span>
+              )}
               <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, color: 'var(--accent)', minWidth: 80, textAlign: 'right' }}>{(item.price * item.quantity).toFixed(2)} MAD</span>
               <button onClick={() => removeFromCart(item.cartKey)} style={{ background: 'none', border: 'none', color: 'var(--status-error)', cursor: 'pointer', padding: '0.5rem', borderRadius: '999px' }}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
