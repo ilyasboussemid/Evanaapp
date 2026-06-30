@@ -20,7 +20,8 @@ function Header() {
   const navLinks = [
     { path: '/', label: 'Accueil' },
     { path: '/soldes', label: '🔥 Soldes' },
-    { path: '/cart', label: 'Panier' },
+    { path: '/?category=Sacs+Femmes', label: 'Sacs' },
+    { path: '/?category=Chaussures+Femmes', label: 'Chaussures' },
   ]
 
   return (
@@ -31,9 +32,14 @@ function Header() {
         </Link>
 
         <nav className="flex items-center gap-1">
-          {navLinks.map((link) => (
-            <Link key={link.path} to={link.path} className={`nav-link ${location.pathname === link.path ? 'active' : ''}`}>{link.label}</Link>
-          ))}
+          {navLinks.map((link) => {
+            const isActive = link.path === '/'
+              ? location.pathname === '/' && !location.search
+              : location.pathname + location.search === link.path
+            return (
+              <Link key={link.path} to={link.path} className={`nav-link ${isActive ? 'active' : ''}`}>{link.label}</Link>
+            )
+          })}
         </nav>
 
         <div className="flex items-center gap-2" style={{ position: 'relative' }}>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { useCart } from '../context/CartContext.jsx'
 import { productService } from '../services/api.js'
 
@@ -27,6 +27,12 @@ function Home() {
   const [selectedColor, setSelectedColor] = useState('')
   const [loading, setLoading] = useState(true)
   const { addToCart } = useCart()
+  const [searchParams] = useSearchParams()
+
+  useEffect(() => {
+    const catParam = searchParams.get('category')
+    if (catParam) setSelectedCategory(catParam)
+  }, [searchParams])
 
   useEffect(() => {
     productService.getCategories()
