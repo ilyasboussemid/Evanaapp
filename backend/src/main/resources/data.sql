@@ -1,35 +1,35 @@
 INSERT INTO products (name, description, short_description, price, category, image_url, stock) VALUES
-('Casque Bluetooth Premium', 'Casque sans fil avec reduction de bruit active, autonomie de 30h, son Hi-Fi. Confortable pour une utilisation prolongee avec coussinets en mousse a memoire de forme.', 'Casque sans fil avec reduction de bruit active', 89.99, 'Electronique', 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400', 50);
+('Escarpins Noirs Classiques', 'Escarpins elegants en cuir veritable avec talon de 8cm. Semelle interieure coussinee pour un confort optimal. Parfaits pour le bureau ou les soirees. Finition soignee.', 'Escarpins cuir talon 8cm', 89.99, 'Chaussures Femmes', 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=400', 40);
 
 INSERT INTO products (name, description, short_description, price, category, image_url, stock) VALUES
-('Montre Connectee Sport', 'Montre intelligente avec GPS integre, cardiofrequencemetre, suivi du sommeil et plus de 20 modes sportifs. Etanche IP68, ecran AMOLED 1.4 pouces.', 'Montre GPS avec cardiofrequencemetre', 149.99, 'Electronique', 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400', 30);
+('Sneakers Blanches Femme', 'Baskets blanches minimalistes en cuir souple. Semelle plate confortable pour un usage quotidien. Design epure et moderne qui se marie avec toutes les tenues.', 'Baskets blanches cuir souple', 69.99, 'Chaussures Femmes', 'https://images.unsplash.com/photo-1560769629-975ec94e6a86?w=400', 80);
 
 INSERT INTO products (name, description, short_description, price, category, image_url, stock) VALUES
-('Sac a Dos Urbain', 'Sac a dos elegant et fonctionnel avec compartiment laptop 15 pouces, port USB integre, tissu impermeable. Ideal pour le travail et les deplacements.', 'Sac a dos impermeable avec port USB', 59.99, 'Mode', 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400', 100);
+('Bottines Chelsea Camel', 'Bottines Chelsea en daim avec elastique lateral. Talon bloc de 4cm. Look tendance et versatile, ideales pour l automne et l hiver. Semelle antiderapante.', 'Bottines daim talon bloc 4cm', 119.99, 'Chaussures Femmes', 'https://images.unsplash.com/photo-1608256246200-53e635b5b65f?w=400', 35);
 
 INSERT INTO products (name, description, short_description, price, category, image_url, stock) VALUES
-('Enceinte Portable Waterproof', 'Enceinte Bluetooth portable etanche IPX7, son 360 puissant, autonomie 12h. Parfaite pour la plage, la piscine ou les randonnees.', 'Enceinte Bluetooth etanche IPX7', 45.99, 'Electronique', 'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=400', 75);
+('Sandales a Talons Dorees', 'Sandales a talons fins de 10cm avec brides dorees. Fermeture par boucle a la cheville. Elegantes pour les occasions speciales et les soirees d ete.', 'Sandales talons fins brides dorees', 79.99, 'Chaussures Femmes', 'https://images.unsplash.com/photo-1596703263926-eb0762ee17e4?w=400', 50);
 
 INSERT INTO products (name, description, short_description, price, category, image_url, stock) VALUES
-('Lampe de Bureau LED', 'Lampe de bureau LED avec 5 niveaux de luminosite et 3 temperatures de couleur. Port USB pour charger vos appareils. Bras flexible et base stable.', 'Lampe LED ajustable avec port USB', 34.99, 'Maison', 'https://images.unsplash.com/photo-1507473885765-e6ed057ab6fe?w=400', 60);
+('Mocassins Beiges Confort', 'Mocassins souples en cuir beige avec semelle flexible. Ideal pour un look chic et decontracte. Interieur en cuir pour un confort toute la journee.', 'Mocassins cuir beige semelle flexible', 59.99, 'Chaussures Femmes', 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=400', 60);
 
 INSERT INTO products (name, description, short_description, price, category, image_url, stock) VALUES
-('Tapis de Yoga Premium', 'Tapis de yoga antiderapant en TPE ecologique, epaisseur 6mm. Surface texturee pour une meilleure adherence. Livre avec sangle de transport.', 'Tapis antiderapant ecologique 6mm', 29.99, 'Sport', 'https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?w=400', 120);
+('Bottes Hautes Noires', 'Bottes hautes en cuir noir avec fermeture eclair laterale. Talon de 5cm. Tige montante jusqu au genou. Doublure chaude pour l hiver.', 'Bottes cuir noir montantes talon 5cm', 149.99, 'Chaussures Femmes', 'https://images.unsplash.com/photo-1605812860427-4024433a70fd?w=400', 25);
 
 INSERT INTO products (name, description, short_description, price, category, image_url, stock) VALUES
-('Cafetiere Italienne Inox', 'Cafetiere italienne en acier inoxydable pour 6 tasses. Design elegant et durable. Compatible toutes plaques y compris induction.', 'Cafetiere inox 6 tasses compatible induction', 24.99, 'Maison', 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefda?w=400', 85);
+('Sac a Main Cuir Noir', 'Sac a main elegant en cuir veritable noir. Compartiment principal spacieux avec poche interieure zippee. Bandouliere ajustable et amovible. Finitions metal dore.', 'Sac cuir noir bandouliere amovible', 129.99, 'Sacs Femmes', 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400', 45);
 
 INSERT INTO products (name, description, short_description, price, category, image_url, stock) VALUES
-('Lunettes de Soleil Polarisees', 'Lunettes de soleil avec verres polarises UV400, monture legere en acetate. Protection optimale contre les rayons UVA/UVB. Style aviateur.', 'Lunettes polarisees UV400 style aviateur', 39.99, 'Mode', 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=400', 200);
+('Sac Bandouliere Camel', 'Petit sac bandouliere en cuir camel avec fermoir metal. Format compact ideal pour les sorties. Chaine doree elegante. Interieur double avec poche pour telephone.', 'Sac bandouliere cuir camel chaine doree', 89.99, 'Sacs Femmes', 'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=400', 55);
 
 INSERT INTO products (name, description, short_description, price, category, image_url, stock) VALUES
-('Bouteille Isotherme 750ml', 'Bouteille isotherme double paroi en acier inoxydable. Garde vos boissons chaudes 12h ou froides 24h. Sans BPA, anti-fuite.', 'Bouteille double paroi chaud 12h/froid 24h', 19.99, 'Sport', 'https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=400', 150);
+('Cabas Tote Beige', 'Grand sac cabas en toile et cuir beige. Tres spacieux pour le travail ou les courses. Poches interieures multiples. Anses renforcees confortables.', 'Cabas toile et cuir grande capacite', 79.99, 'Sacs Femmes', 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400', 70);
 
 INSERT INTO products (name, description, short_description, price, category, image_url, stock) VALUES
-('Clavier Mecanique RGB', 'Clavier mecanique gaming avec switches blue, retroeclairage RGB personnalisable par touche. Repose-poignet magnetique inclus. Construction aluminium.', 'Clavier mecanique RGB switches blue', 79.99, 'Electronique', 'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=400', 40);
+('Pochette de Soiree Rose', 'Pochette elegante en satin rose avec fermoir strass. Format parfait pour les soirees et evenements. Chaine amovible pour porter en bandouliere.', 'Pochette satin rose fermoir strass', 49.99, 'Sacs Femmes', 'https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=400', 90);
 
 INSERT INTO products (name, description, short_description, price, category, image_url, stock) VALUES
-('Plante Artificielle Monstera', 'Plante artificielle Monstera de 90cm dans un pot en ceramique blanc. Feuilles realistes en plastique de haute qualite. Parfaite pour decorer.', 'Monstera artificielle 90cm avec pot ceramique', 44.99, 'Maison', 'https://images.unsplash.com/photo-1459411552884-841db9b3cc2a?w=400', 45);
+('Sac a Dos Femme Cuir', 'Sac a dos feminin en cuir synthetique de qualite. Design elegant avec multiples compartiments. Fermeture eclair securisee. Ideal pour le quotidien ou les voyages.', 'Sac a dos cuir elegant multi-compartiments', 99.99, 'Sacs Femmes', 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400', 40);
 
 INSERT INTO products (name, description, short_description, price, category, image_url, stock) VALUES
-('Baskets Running Legeres', 'Chaussures de running ultra-legeres avec semelle en mousse EVA pour un amorti optimal. Tige en mesh respirant. Parfaites pour la course.', 'Baskets legeres en mesh respirant', 69.99, 'Sport', 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400', 80);
+('Sac Seau Franges Marron', 'Sac seau boheme en cuir marron avec franges decoratives. Look tendance et decontracte. Fermeture par lien coulissant. Bandouliere longue ajustable.', 'Sac seau boheme cuir franges', 109.99, 'Sacs Femmes', 'https://images.unsplash.com/photo-1591561954557-26941169b49e?w=400', 30);
