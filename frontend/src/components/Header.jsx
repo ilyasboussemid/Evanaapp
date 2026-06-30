@@ -19,7 +19,7 @@ function Header() {
 
   const navLinks = [
     { path: '/', label: 'Accueil' },
-    { path: '/soldes', label: '🔥 Soldes' },
+    { path: '/soldes', label: 'Soldes' },
     { path: '/?category=Sacs+Femmes', label: 'Sacs' },
     { path: '/?category=Chaussures+Femmes', label: 'Chaussures' },
   ]
