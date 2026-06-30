@@ -32,15 +32,15 @@ function ProductDetail() {
   return (
     <div className="container" style={{ paddingTop: '2rem', paddingBottom: '3rem' }}>
       <Link to="/" className="nav-link" style={{ marginBottom: '1.5rem', display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}>← Retour aux produits</Link>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '3rem', marginTop: '1rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', marginTop: '1rem' }}>
         <div>
-          <img src={product.imageUrl} alt={product.name} style={{ width: '100%', height: '450px', objectFit: 'cover', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow)' }} />
+          <img src={product.imageUrl} alt={product.name} style={{ width: '100%', height: '400px', objectFit: 'cover', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow)' }} />
         </div>
         <div>
           <span className="badge" style={{ marginBottom: '0.75rem' }}>{product.category}</span>
           <h1 style={{ marginBottom: '0.5rem' }}>{product.name}</h1>
           <p className="text-muted" style={{ lineHeight: 1.8, margin: '1rem 0' }}>{product.description}</p>
-          <div style={{ fontFamily: 'var(--font-display)', fontSize: '2.5rem', fontWeight: 700, color: 'var(--accent)', letterSpacing: '-0.04em', margin: '1.5rem 0' }}>
+          <div style={{ fontFamily: 'var(--font-display)', fontSize: '1.75rem', fontWeight: 700, color: 'var(--accent)', letterSpacing: '-0.04em', margin: '1.5rem 0' }}>
             {product.price.toFixed(2)} MAD
           </div>
           <div style={{ marginBottom: '1.5rem' }}>
