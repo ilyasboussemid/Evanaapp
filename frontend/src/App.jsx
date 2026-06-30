@@ -8,6 +8,7 @@ import Checkout from './pages/Checkout.jsx'
 import Confirmation from './pages/Confirmation.jsx'
 import AdminLogin from './pages/AdminLogin.jsx'
 import AdminDashboard from './pages/AdminDashboard.jsx'
+import Soldes from './pages/Soldes.jsx'
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/confirmation" element={<Confirmation />} />
+          <Route path="/soldes" element={<Soldes />} />
           <Route path="/admin" element={<AdminLogin />} />
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
         </Routes>

@@ -19,6 +19,7 @@ function Header() {
 
   const navLinks = [
     { path: '/', label: 'Accueil' },
+    { path: '/soldes', label: '🔥 Soldes' },
     { path: '/cart', label: 'Panier' },
   ]
 
