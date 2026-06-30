@@ -8,14 +8,12 @@ function Checkout() {
   const { cartItems, getCartTotal, clearCart, setLastOrder } = useCart()
   const [loading, setLoading] = useState(false)
   const [errors, setErrors] = useState({})
-  const [form, setForm] = useState({ firstName: '', lastName: '', phone: '', address: '' })
+  const [form, setForm] = useState({ pseudo: '', phone: '', address: '' })
 
   if (cartItems.length === 0) return <div className="container"><div className="empty-state"><p>Votre panier est vide.</p><Link to="/" className="btn btn-primary" style={{ marginTop: '1rem' }}>Retour</Link></div></div>
 
   const validate = () => {
     const e = {}
-    if (!form.firstName.trim()) e.firstName = 'Le prénom est obligatoire'
-    if (!form.lastName.trim()) e.lastName = 'Le nom est obligatoire'
     if (!form.phone.trim()) e.phone = 'Le téléphone est obligatoire'
     else if (!/^[+]?[0-9\s\-]{8,15}$/.test(form.phone.trim())) e.phone = 'Format invalide'
     if (!form.address.trim()) e.address = "L'adresse est obligatoire"
@@ -34,8 +32,9 @@ function Checkout() {
     if (!validate()) return
     setLoading(true)
     try {
+      const pseudoValue = form.pseudo.trim() || 'Client'
       const res = await orderService.create({
-        firstName: form.firstName.trim(), lastName: form.lastName.trim(),
+        firstName: pseudoValue, lastName: '',
         phone: form.phone.trim(), address: form.address.trim(),
         items: cartItems.map(i => ({ productId: i.id, quantity: i.quantity }))
       })
@@ -47,7 +46,7 @@ function Checkout() {
         `• ${i.name}${i.selectedSize && i.selectedSize !== 'Unique' ? ` (Pointure ${i.selectedSize})` : ''}${i.selectedColor ? ` - ${i.selectedColor}` : ''} x${i.quantity} = ${(i.price * i.quantity).toFixed(2)} MAD`
       ).join('\n')
       const message = `🛒 *NOUVELLE COMMANDE EVANA*\n\n` +
-        `👤 *Client:* ${form.firstName.trim()} ${form.lastName.trim()}\n` +
+        `👤 *Pseudo:* ${pseudoValue}\n` +
         `📞 *Tél:* ${form.phone.trim()}\n` +
         `📍 *Adresse:* ${form.address.trim()}\n\n` +
         `📦 *Articles:*\n${orderItems}\n\n` +
@@ -73,26 +72,18 @@ function Checkout() {
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 380px', gap: '2rem', alignItems: 'start' }}>
         <form className="card" onSubmit={handleSubmit} style={{ padding: '2rem' }}>
           <h3 style={{ marginBottom: '1.5rem', fontSize: '1.1rem' }}>Informations de livraison</h3>
-          <div className="grid grid-2" style={{ gap: '1rem', marginBottom: '1rem' }}>
-            <div className="form-group">
-              <label>Prénom *</label>
-              <input className="input" name="firstName" value={form.firstName} onChange={handleChange} placeholder="Votre prénom" style={errors.firstName ? { borderColor: 'var(--status-error)' } : {}} />
-              {errors.firstName && <span className="text-xs" style={{ color: 'var(--status-error)' }}>{errors.firstName}</span>}
-            </div>
-            <div className="form-group">
-              <label>Nom *</label>
-              <input className="input" name="lastName" value={form.lastName} onChange={handleChange} placeholder="Votre nom" style={errors.lastName ? { borderColor: 'var(--status-error)' } : {}} />
-              {errors.lastName && <span className="text-xs" style={{ color: 'var(--status-error)' }}>{errors.lastName}</span>}
-            </div>
+          <div className="form-group" style={{ marginBottom: '1rem' }}>
+            <label>Pseudo <span className="text-xs text-muted">(optionnel)</span></label>
+            <input className="input" name="pseudo" value={form.pseudo} onChange={handleChange} placeholder="Votre pseudo ou surnom" />
           </div>
           <div className="form-group" style={{ marginBottom: '1rem' }}>
             <label>Téléphone *</label>
-            <input className="input" name="phone" value={form.phone} onChange={handleChange} placeholder="+33 6 12 34 56 78" style={errors.phone ? { borderColor: 'var(--status-error)' } : {}} />
+            <input className="input" name="phone" value={form.phone} onChange={handleChange} placeholder="0612345678" style={errors.phone ? { borderColor: 'var(--status-error)' } : {}} />
             {errors.phone && <span className="text-xs" style={{ color: 'var(--status-error)' }}>{errors.phone}</span>}
           </div>
           <div className="form-group" style={{ marginBottom: '1.5rem' }}>
             <label>Adresse de livraison *</label>
-            <textarea className="input" name="address" value={form.address} onChange={handleChange} placeholder="Numéro, rue, ville, code postal" rows="3" style={{ resize: 'vertical', minHeight: '80px', ...(errors.address ? { borderColor: 'var(--status-error)' } : {}) }} />
+            <textarea className="input" name="address" value={form.address} onChange={handleChange} placeholder="Ville, quartier, rue..." rows="3" style={{ resize: 'vertical', minHeight: '80px', ...(errors.address ? { borderColor: 'var(--status-error)' } : {}) }} />
             {errors.address && <span className="text-xs" style={{ color: 'var(--status-error)' }}>{errors.address}</span>}
           </div>
           <button type="submit" className="btn btn-primary btn-lg" style={{ width: '100%' }} disabled={loading}>
@@ -104,7 +95,7 @@ function Checkout() {
           <h3 style={{ marginBottom: '1rem', fontSize: '1.1rem' }}>Récapitulatif</h3>
           <div style={{ borderBottom: '1px solid var(--border)', paddingBottom: '1rem', marginBottom: '1rem' }}>
             {cartItems.map(item => (
-              <div key={item.id} className="flex justify-between text-sm" style={{ padding: '0.3rem 0' }}>
+              <div key={item.cartKey || item.id} className="flex justify-between text-sm" style={{ padding: '0.3rem 0' }}>
                 <span className="text-muted">{item.name} ×{item.quantity}</span>
                 <span>{(item.price * item.quantity).toFixed(2)} MAD</span>
               </div>
