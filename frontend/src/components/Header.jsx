@@ -16,8 +16,7 @@ function Header() {
     <header className="header">
       <div className="container flex items-center justify-between">
         <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none' }}>
-          <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'linear-gradient(135deg, var(--accent), #f97316)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '1rem' }}>E</div>
-          <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '1.2rem', color: 'var(--text)', letterSpacing: '-0.04em' }}>Evana</span>
+          <img src="/evana-logo.svg" alt="Evana" style={{ height: '32px' }} />
         </Link>
 
         <nav className="flex items-center gap-1">
