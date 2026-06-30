@@ -32,8 +32,22 @@ function Home() {
   return (
     <div className="container">
       <section className="hero">
-        <h1>Bienvenue sur <span className="brand-text">Evana</span></h1>
-        <p>Découvrez nos produits de qualité au meilleur prix</p>
+        <div style={{ marginBottom: '1.25rem' }}>
+          <span className="status-badge">
+            Evana · Votre marché en ligne
+          </span>
+        </div>
+        <h1>
+          Découvrez des{' '}
+          <span className="brand-text">produits</span>
+          <br />
+          de <span className="brand-text">qualité</span>
+        </h1>
+        <p>
+          Evana vous propose une sélection de produits
+          soigneusement choisis au meilleur prix, livrés
+          directement chez vous.
+        </p>
       </section>
 
       <SearchBar
