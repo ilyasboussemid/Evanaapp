@@ -35,9 +35,12 @@ function Header() {
           {navLinks.map((link) => {
             const isActive = link.path === '/'
               ? location.pathname === '/' && !location.search
-              : location.pathname + location.search === link.path
+              : link.path === '/soldes'
+                ? location.pathname === '/soldes'
+                : location.pathname === '/' && location.search === `?category=${link.path.split('=')[1]}`
+            if (isActive) return null
             return (
-              <Link key={link.path} to={link.path} className={`nav-link ${isActive ? 'active' : ''}`}>{link.label}</Link>
+              <Link key={link.path} to={link.path} className="nav-link">{link.label}</Link>
             )
           })}
         </nav>
