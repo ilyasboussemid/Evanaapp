@@ -40,6 +40,22 @@ function Checkout() {
         items: cartItems.map(i => ({ productId: i.id, quantity: i.quantity }))
       })
       setLastOrder(res.data)
+
+      // Send WhatsApp notification to admin
+      const whatsappNumber = '212709542311'
+      const orderItems = cartItems.map(i => 
+        `• ${i.name}${i.selectedSize && i.selectedSize !== 'Unique' ? ` (Pointure ${i.selectedSize})` : ''}${i.selectedColor ? ` - ${i.selectedColor}` : ''} x${i.quantity} = ${(i.price * i.quantity).toFixed(2)} MAD`
+      ).join('\n')
+      const message = `🛒 *NOUVELLE COMMANDE EVANA*\n\n` +
+        `👤 *Client:* ${form.firstName.trim()} ${form.lastName.trim()}\n` +
+        `📞 *Tél:* ${form.phone.trim()}\n` +
+        `📍 *Adresse:* ${form.address.trim()}\n\n` +
+        `📦 *Articles:*\n${orderItems}\n\n` +
+        `💰 *TOTAL: ${getCartTotal().toFixed(2)} MAD*\n\n` +
+        `📋 Commande #${res.data.id}`
+      const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`
+      window.open(whatsappUrl, '_blank')
+
       clearCart()
       navigate('/confirmation')
     } catch { alert('Erreur lors de la commande.') }
