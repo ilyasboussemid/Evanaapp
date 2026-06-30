@@ -19,31 +19,32 @@ export function CartProvider({ children }) {
   }, [cartItems])
 
   const addToCart = (product, quantity = 1) => {
+    const cartKey = `${product.id}-${product.selectedSize || 'none'}-${product.selectedColor || 'none'}`
     setCartItems(prev => {
-      const existing = prev.find(item => item.id === product.id)
+      const existing = prev.find(item => item.cartKey === cartKey)
       if (existing) {
         return prev.map(item =>
-          item.id === product.id
+          item.cartKey === cartKey
             ? { ...item, quantity: item.quantity + quantity }
             : item
         )
       }
-      return [...prev, { ...product, quantity }]
+      return [...prev, { ...product, cartKey, quantity }]
     })
   }
 
-  const removeFromCart = (productId) => {
-    setCartItems(prev => prev.filter(item => item.id !== productId))
+  const removeFromCart = (cartKey) => {
+    setCartItems(prev => prev.filter(item => item.cartKey !== cartKey))
   }
 
-  const updateQuantity = (productId, quantity) => {
+  const updateQuantity = (cartKey, quantity) => {
     if (quantity <= 0) {
-      removeFromCart(productId)
+      removeFromCart(cartKey)
       return
     }
     setCartItems(prev =>
       prev.map(item =>
-        item.id === productId ? { ...item, quantity } : item
+        item.cartKey === cartKey ? { ...item, quantity } : item
       )
     )
   }

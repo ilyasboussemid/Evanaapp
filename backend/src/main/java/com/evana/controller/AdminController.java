@@ -46,6 +46,12 @@ public class AdminController {
 
     @PostMapping("/products")
     public ResponseEntity<Product> createProduct(@RequestBody Product product) {
+        if (product.getSizes() != null) {
+            product.getSizes().forEach(size -> size.setProduct(product));
+        }
+        if (product.getColors() != null) {
+            product.getColors().forEach(color -> color.setProduct(product));
+        }
         Product saved = productRepository.save(product);
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
@@ -61,6 +67,28 @@ public class AdminController {
                     existing.setCategory(product.getCategory());
                     existing.setImageUrl(product.getImageUrl());
                     existing.setStock(product.getStock());
+                    existing.setOnSale(product.getOnSale());
+                    existing.setSalePrice(product.getSalePrice());
+                    existing.setDiscountPercent(product.getDiscountPercent());
+
+                    // Update sizes
+                    existing.getSizes().clear();
+                    if (product.getSizes() != null) {
+                        product.getSizes().forEach(size -> {
+                            size.setProduct(existing);
+                            existing.getSizes().add(size);
+                        });
+                    }
+
+                    // Update colors
+                    existing.getColors().clear();
+                    if (product.getColors() != null) {
+                        product.getColors().forEach(color -> {
+                            color.setProduct(existing);
+                            existing.getColors().add(color);
+                        });
+                    }
+
                     return ResponseEntity.ok(productRepository.save(existing));
                 })
                 .orElse(ResponseEntity.notFound().build());

@@ -28,8 +28,10 @@ function ProductDetail() {
     if (product) {
       const cartItem = {
         ...product,
+        price: product.onSale ? product.salePrice : product.price,
         selectedSize: selectedSize ? selectedSize.size : null,
-        selectedColor: selectedColor ? selectedColor.name : null
+        selectedColor: selectedColor ? selectedColor.name : null,
+        selectedColorHex: selectedColor ? selectedColor.hexCode : null
       }
       addToCart(cartItem, quantity)
       setAdded(true)
@@ -139,15 +141,27 @@ function ProductDetail() {
 
           {/* Add to cart */}
           {currentStock > 0 && (
-            <div className="flex items-center gap-2">
-              <div style={{ display: 'flex', alignItems: 'center', border: '1.5px solid var(--border)', borderRadius: '999px', overflow: 'hidden' }}>
-                <button onClick={() => setQuantity(Math.max(1, quantity - 1))} style={{ width: 42, height: 42, background: 'var(--surface-muted)', fontSize: '1.2rem', display: 'flex', alignItems: 'center', justifyContent: 'center', border: 'none', cursor: 'pointer' }}>-</button>
-                <span style={{ width: 50, textAlign: 'center', fontWeight: 600, fontFamily: 'var(--font-display)' }}>{quantity}</span>
-                <button onClick={() => setQuantity(Math.min(currentStock, quantity + 1))} style={{ width: 42, height: 42, background: 'var(--surface-muted)', fontSize: '1.2rem', display: 'flex', alignItems: 'center', justifyContent: 'center', border: 'none', cursor: 'pointer' }}>+</button>
+            <div>
+              {(!selectedSize && product.sizes && product.sizes.length > 0 && product.sizes[0].size !== 'Unique') && (
+                <p className="text-sm" style={{ color: 'var(--status-error)', marginBottom: '0.75rem' }}>Veuillez sélectionner une pointure</p>
+              )}
+              {(!selectedColor && product.colors && product.colors.length > 0) && (
+                <p className="text-sm" style={{ color: 'var(--status-error)', marginBottom: '0.75rem' }}>Veuillez sélectionner une couleur</p>
+              )}
+              <div className="flex items-center gap-2">
+                <div style={{ display: 'flex', alignItems: 'center', border: '1.5px solid var(--border)', borderRadius: '999px', overflow: 'hidden' }}>
+                  <button onClick={() => setQuantity(Math.max(1, quantity - 1))} style={{ width: 42, height: 42, background: 'var(--surface-muted)', fontSize: '1.2rem', display: 'flex', alignItems: 'center', justifyContent: 'center', border: 'none', cursor: 'pointer' }}>-</button>
+                  <span style={{ width: 50, textAlign: 'center', fontWeight: 600, fontFamily: 'var(--font-display)' }}>{quantity}</span>
+                  <button onClick={() => setQuantity(Math.min(currentStock, quantity + 1))} style={{ width: 42, height: 42, background: 'var(--surface-muted)', fontSize: '1.2rem', display: 'flex', alignItems: 'center', justifyContent: 'center', border: 'none', cursor: 'pointer' }}>+</button>
+                </div>
+                <button
+                  className="btn btn-primary btn-lg"
+                  onClick={handleAddToCart}
+                  disabled={(!selectedSize && product.sizes && product.sizes.length > 0 && product.sizes[0].size !== 'Unique') || (!selectedColor && product.colors && product.colors.length > 0)}
+                >
+                  {added ? '✓ Ajouté !' : 'Ajouter au panier'}
+                </button>
               </div>
-              <button className="btn btn-primary btn-lg" onClick={handleAddToCart}>
-                {added ? '✓ Ajouté !' : 'Ajouter au panier'}
-              </button>
             </div>
           )}
         </div>
