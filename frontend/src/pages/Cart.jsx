@@ -1,9 +1,20 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useCart } from '../context/CartContext.jsx'
+import { productService } from '../services/api.js'
 
 function Cart() {
   const { cartItems, removeFromCart, updateQuantity, getCartTotal } = useCart()
+  const [recommendations, setRecommendations] = useState([])
+
+  useEffect(() => {
+    productService.getAll('', '').then(res => {
+      const all = Array.isArray(res.data) ? res.data : []
+      const cartIds = cartItems.map(i => i.id)
+      const recs = all.filter(p => !cartIds.includes(p.id)).sort(() => 0.5 - Math.random()).slice(0, 4)
+      setRecommendations(recs)
+    }).catch(() => {})
+  }, [cartItems])
 
   if (cartItems.length === 0) {
     return (
@@ -86,6 +97,29 @@ function Cart() {
           </Link>
         </div>
       </div>
+
+      {/* Recommendations */}
+      {recommendations.length > 0 && (
+        <div style={{ marginTop: '3rem' }}>
+          <h2 style={{ marginBottom: '1.5rem' }}>Vous aimerez aussi</h2>
+          <div className="grid grid-4" style={{ gap: '1rem' }}>
+            {recommendations.map(rec => (
+              <Link key={rec.id} to={`/product/${rec.id}`} style={{ textDecoration: 'none' }}>
+                <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
+                  <img src={rec.imageUrl} alt={rec.name} style={{ width: '100%', height: '150px', objectFit: 'cover' }} />
+                  <div style={{ padding: '0.75rem' }}>
+                    <h4 style={{ fontSize: '0.85rem', marginBottom: '0.25rem' }}>{rec.name}</h4>
+                    <span style={{ fontFamily: 'var(--font-display)', fontSize: '1rem', fontWeight: 700, color: 'var(--accent)' }}>
+                      {rec.onSale ? rec.salePrice.toFixed(2) : rec.price.toFixed(2)} MAD
+                    </span>
+                    {rec.onSale && <span className="text-xs text-muted" style={{ marginLeft: '0.3rem', textDecoration: 'line-through' }}>{rec.price.toFixed(2)}</span>}
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   )
 }
