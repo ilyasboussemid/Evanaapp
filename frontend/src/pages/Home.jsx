@@ -13,15 +13,15 @@ function Home() {
 
   useEffect(() => {
     productService.getCategories()
-      .then(res => setCategories(res.data))
-      .catch(console.error)
+      .then(res => setCategories(Array.isArray(res.data) ? res.data : []))
+      .catch(() => setCategories([]))
   }, [])
 
   useEffect(() => {
     setLoading(true)
     productService.getAll(search, selectedCategory)
-      .then(res => { setProducts(res.data); setLoading(false) })
-      .catch(() => setLoading(false))
+      .then(res => { setProducts(Array.isArray(res.data) ? res.data : []); setLoading(false) })
+      .catch(() => { setProducts([]); setLoading(false) })
   }, [search, selectedCategory])
 
   return (
