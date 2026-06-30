@@ -69,7 +69,7 @@ function Checkout() {
         <p>Remplissez vos informations de livraison</p>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 380px', gap: '2rem', alignItems: 'start' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', alignItems: 'start' }}>
         <form className="card" onSubmit={handleSubmit} style={{ padding: '2rem' }}>
           <h3 style={{ marginBottom: '1.5rem', fontSize: '1.1rem' }}>Informations de livraison</h3>
           <div className="form-group" style={{ marginBottom: '1rem' }}>

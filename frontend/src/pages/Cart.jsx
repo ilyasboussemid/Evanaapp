@@ -24,38 +24,42 @@ function Cart() {
         <p>{cartItems.length} article{cartItems.length > 1 ? 's' : ''} dans votre panier</p>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 360px', gap: '2rem', alignItems: 'start' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', alignItems: 'start' }}>
         <div className="flex flex-col gap-2">
           {cartItems.map(item => (
-            <div key={`${item.id}-${item.selectedSize}-${item.selectedColor}`} className="card-flat flex items-center gap-2" style={{ padding: '1rem' }}>
-              <img src={item.imageUrl} alt={item.name} style={{ width: 80, height: 80, objectFit: 'cover', borderRadius: 'var(--radius-sm)' }} />
-              <div style={{ flex: 1 }}>
-                <h4 style={{ fontSize: '0.95rem', marginBottom: '0.2rem' }}>{item.name}</h4>
-                <div className="flex items-center gap-1 flex-wrap" style={{ marginTop: '0.25rem' }}>
-                  {item.selectedSize && item.selectedSize !== 'Unique' && (
-                    <span className="badge badge-sm">Pointure {item.selectedSize}</span>
-                  )}
-                  {item.selectedColor && (
-                    <span className="badge badge-sm" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}>
-                      <span style={{ width: 10, height: 10, borderRadius: '50%', background: item.selectedColorHex || '#ccc', border: '1px solid var(--border)', display: 'inline-block' }}></span>
-                      {item.selectedColor}
-                    </span>
-                  )}
+            <div key={`${item.id}-${item.selectedSize}-${item.selectedColor}`} className="card-flat" style={{ padding: '1rem' }}>
+              <div className="flex items-center gap-2" style={{ flexWrap: 'wrap' }}>
+                <img src={item.imageUrl} alt={item.name} style={{ width: 64, height: 64, objectFit: 'cover', borderRadius: 'var(--radius-sm)' }} />
+                <div style={{ flex: 1, minWidth: '120px' }}>
+                  <h4 style={{ fontSize: '0.9rem', marginBottom: '0.2rem' }}>{item.name}</h4>
+                  <div className="flex items-center gap-1 flex-wrap" style={{ marginTop: '0.25rem' }}>
+                    {item.selectedSize && item.selectedSize !== 'Unique' && (
+                      <span className="badge badge-sm">Pointure {item.selectedSize}</span>
+                    )}
+                    {item.selectedColor && (
+                      <span className="badge badge-sm" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}>
+                        <span style={{ width: 10, height: 10, borderRadius: '50%', background: item.selectedColorHex || '#ccc', border: '1px solid var(--border)', display: 'inline-block' }}></span>
+                        {item.selectedColor}
+                      </span>
+                    )}
+                  </div>
+                  <span className="text-muted text-sm">{item.price.toFixed(2)} MAD</span>
                 </div>
-                <span className="text-muted text-sm">{item.price.toFixed(2)} MAD</span>
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', border: '1px solid var(--border)', borderRadius: '999px', overflow: 'hidden' }}>
-                <button onClick={() => updateQuantity(item.cartKey, item.quantity - 1)} style={{ width: 32, height: 32, background: 'var(--surface-muted)', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>-</button>
-                <span style={{ width: 36, textAlign: 'center', fontWeight: 600, fontSize: '0.85rem' }}>{item.quantity}</span>
-                <button onClick={() => updateQuantity(item.cartKey, item.quantity + 1)} disabled={item.quantity >= (item.maxStock || 99)} style={{ width: 32, height: 32, background: item.quantity >= (item.maxStock || 99) ? '#f3f3f3' : 'var(--surface-muted)', border: 'none', cursor: item.quantity >= (item.maxStock || 99) ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', color: item.quantity >= (item.maxStock || 99) ? '#bbb' : 'inherit' }}>+</button>
+              <div className="flex items-center justify-between" style={{ marginTop: '0.75rem', gap: '0.5rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', border: '1px solid var(--border)', borderRadius: '999px', overflow: 'hidden' }}>
+                  <button onClick={() => updateQuantity(item.cartKey, item.quantity - 1)} style={{ width: 32, height: 32, background: 'var(--surface-muted)', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>-</button>
+                  <span style={{ width: 36, textAlign: 'center', fontWeight: 600, fontSize: '0.85rem' }}>{item.quantity}</span>
+                  <button onClick={() => updateQuantity(item.cartKey, item.quantity + 1)} disabled={item.quantity >= (item.maxStock || 99)} style={{ width: 32, height: 32, background: item.quantity >= (item.maxStock || 99) ? '#f3f3f3' : 'var(--surface-muted)', border: 'none', cursor: item.quantity >= (item.maxStock || 99) ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', color: item.quantity >= (item.maxStock || 99) ? '#bbb' : 'inherit' }}>+</button>
+                </div>
+                {item.quantity >= (item.maxStock || 99) && (
+                  <span className="text-xs" style={{ color: 'var(--status-error)' }}>Max</span>
+                )}
+                <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, color: 'var(--accent)', fontSize: '0.95rem' }}>{(item.price * item.quantity).toFixed(2)} MAD</span>
+                <button onClick={() => removeFromCart(item.cartKey)} style={{ background: 'none', border: 'none', color: 'var(--status-error)', cursor: 'pointer', padding: '0.5rem', borderRadius: '999px' }}>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+                </button>
               </div>
-              {item.quantity >= (item.maxStock || 99) && (
-                <span className="text-xs" style={{ color: 'var(--status-error)', whiteSpace: 'nowrap' }}>Max</span>
-              )}
-              <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, color: 'var(--accent)', minWidth: 80, textAlign: 'right' }}>{(item.price * item.quantity).toFixed(2)} MAD</span>
-              <button onClick={() => removeFromCart(item.cartKey)} style={{ background: 'none', border: 'none', color: 'var(--status-error)', cursor: 'pointer', padding: '0.5rem', borderRadius: '999px' }}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
-              </button>
             </div>
           ))}
         </div>
