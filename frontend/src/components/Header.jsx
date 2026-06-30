@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useCart } from '../context/CartContext.jsx'
 
@@ -6,6 +6,16 @@ function Header() {
   const { getCartCount } = useCart()
   const cartCount = getCartCount()
   const location = useLocation()
+  const [showNotif, setShowNotif] = useState(false)
+  const [prevCount, setPrevCount] = useState(cartCount)
+
+  useEffect(() => {
+    if (cartCount > prevCount) {
+      setShowNotif(true)
+      setTimeout(() => setShowNotif(false), 2500)
+    }
+    setPrevCount(cartCount)
+  }, [cartCount])
 
   const navLinks = [
     { path: '/', label: 'Accueil' },
@@ -25,7 +35,7 @@ function Header() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2" style={{ position: 'relative' }}>
           <Link to="/cart" style={{ position: 'relative', display: 'flex', alignItems: 'center', gap: '0.4rem', padding: '0.5rem 1.25rem', borderRadius: '999px', background: 'var(--accent-soft)', color: 'var(--accent-strong)', fontWeight: 600, fontSize: '0.85rem', textDecoration: 'none' }}>
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="9" cy="21" r="1"></circle>
@@ -34,9 +44,17 @@ function Header() {
             </svg>
             Panier
             {cartCount > 0 && (
-              <span style={{ position: 'absolute', top: -4, right: -4, width: 18, height: 18, borderRadius: '50%', background: 'var(--status-error)', color: 'white', fontSize: '0.6rem', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700 }}>{cartCount}</span>
+              <span style={{ position: 'absolute', top: -4, right: -4, width: 20, height: 20, borderRadius: '50%', background: 'var(--accent)', color: 'white', fontSize: '0.65rem', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, boxShadow: '0 2px 8px rgba(232,93,4,0.4)' }}>{cartCount}</span>
             )}
           </Link>
+
+          {showNotif && (
+            <div style={{ position: 'absolute', top: '100%', right: 0, marginTop: '0.75rem', padding: '0.75rem 1.25rem', background: 'var(--surface-strong)', border: '1px solid var(--border)', borderRadius: 'var(--radius-md)', boxShadow: 'var(--shadow)', zIndex: 200, whiteSpace: 'nowrap', animation: 'fadeIn 0.3s ease' }}>
+              <span style={{ fontSize: '0.85rem', color: 'var(--accent-strong)', fontWeight: 600 }}>
+                ✓ Article ajouté ! ({cartCount} dans le panier)
+              </span>
+            </div>
+          )}
         </div>
       </div>
     </header>
