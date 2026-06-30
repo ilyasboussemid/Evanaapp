@@ -20,6 +20,9 @@ public class ProductColor {
     @Column
     private String imageUrl;
 
+    @Column(nullable = false)
+    private Integer stock = 0;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id", nullable = false)
     @JsonIgnore
@@ -27,10 +30,11 @@ public class ProductColor {
 
     public ProductColor() {}
 
-    public ProductColor(String name, String hexCode, String imageUrl) {
+    public ProductColor(String name, String hexCode, String imageUrl, Integer stock) {
         this.name = name;
         this.hexCode = hexCode;
         this.imageUrl = imageUrl;
+        this.stock = stock;
     }
 
     public Long getId() { return id; }
@@ -41,6 +45,8 @@ public class ProductColor {
     public void setHexCode(String hexCode) { this.hexCode = hexCode; }
     public String getImageUrl() { return imageUrl; }
     public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
+    public Integer getStock() { return stock; }
+    public void setStock(Integer stock) { this.stock = stock; }
     public Product getProduct() { return product; }
     public void setProduct(Product product) { this.product = product; }
 }

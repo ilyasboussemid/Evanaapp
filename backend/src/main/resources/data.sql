@@ -50,16 +50,16 @@ INSERT INTO product_sizes (product_id, size, stock) VALUES (6, '36', 3), (6, '37
 -- Sizes for Sacs (Unique)
 INSERT INTO product_sizes (product_id, size, stock) VALUES (7, 'Unique', 45), (8, 'Unique', 55), (9, 'Unique', 70), (10, 'Unique', 90), (11, 'Unique', 40), (12, 'Unique', 30);
 
--- Colors
-INSERT INTO product_colors (product_id, name, hex_code, image_url) VALUES (1, 'Noir', '#000000', NULL), (1, 'Rouge', '#8B0000', NULL), (1, 'Nude', '#E8C4A2', NULL);
-INSERT INTO product_colors (product_id, name, hex_code, image_url) VALUES (2, 'Blanc', '#FFFFFF', NULL), (2, 'Rose', '#FFB6C1', NULL), (2, 'Gris', '#808080', NULL);
-INSERT INTO product_colors (product_id, name, hex_code, image_url) VALUES (3, 'Camel', '#C19A6B', NULL), (3, 'Noir', '#000000', NULL), (3, 'Marron', '#5C3317', NULL);
-INSERT INTO product_colors (product_id, name, hex_code, image_url) VALUES (4, 'Dore', '#FFD700', NULL), (4, 'Argent', '#C0C0C0', NULL), (4, 'Noir', '#000000', NULL);
-INSERT INTO product_colors (product_id, name, hex_code, image_url) VALUES (5, 'Beige', '#F5F5DC', NULL), (5, 'Blanc', '#FFFFFF', NULL), (5, 'Noir', '#000000', NULL);
-INSERT INTO product_colors (product_id, name, hex_code, image_url) VALUES (6, 'Noir', '#000000', NULL), (6, 'Marron', '#5C3317', NULL);
-INSERT INTO product_colors (product_id, name, hex_code, image_url) VALUES (7, 'Noir', '#000000', NULL), (7, 'Camel', '#C19A6B', NULL), (7, 'Bordeaux', '#800020', NULL);
-INSERT INTO product_colors (product_id, name, hex_code, image_url) VALUES (8, 'Camel', '#C19A6B', NULL), (8, 'Noir', '#000000', NULL), (8, 'Beige', '#F5F5DC', NULL);
-INSERT INTO product_colors (product_id, name, hex_code, image_url) VALUES (9, 'Beige', '#F5F5DC', NULL), (9, 'Noir', '#000000', NULL), (9, 'Marine', '#000080', NULL);
-INSERT INTO product_colors (product_id, name, hex_code, image_url) VALUES (10, 'Rose', '#FFB6C1', NULL), (10, 'Noir', '#000000', NULL), (10, 'Dore', '#FFD700', NULL);
-INSERT INTO product_colors (product_id, name, hex_code, image_url) VALUES (11, 'Noir', '#000000', NULL), (11, 'Camel', '#C19A6B', NULL), (11, 'Gris', '#808080', NULL);
-INSERT INTO product_colors (product_id, name, hex_code, image_url) VALUES (12, 'Marron', '#5C3317', NULL), (12, 'Noir', '#000000', NULL), (12, 'Camel', '#C19A6B', NULL);
+-- Colors (with stock)
+INSERT INTO product_colors (product_id, name, hex_code, image_url, stock) VALUES (1, 'Noir', '#000000', NULL, 20), (1, 'Rouge', '#8B0000', NULL, 12), (1, 'Nude', '#E8C4A2', NULL, 8);
+INSERT INTO product_colors (product_id, name, hex_code, image_url, stock) VALUES (2, 'Blanc', '#FFFFFF', NULL, 40), (2, 'Rose', '#FFB6C1', NULL, 25), (2, 'Gris', '#808080', NULL, 15);
+INSERT INTO product_colors (product_id, name, hex_code, image_url, stock) VALUES (3, 'Camel', '#C19A6B', NULL, 15), (3, 'Noir', '#000000', NULL, 12), (3, 'Marron', '#5C3317', NULL, 8);
+INSERT INTO product_colors (product_id, name, hex_code, image_url, stock) VALUES (4, 'Dore', '#FFD700', NULL, 25), (4, 'Argent', '#C0C0C0', NULL, 15), (4, 'Noir', '#000000', NULL, 10);
+INSERT INTO product_colors (product_id, name, hex_code, image_url, stock) VALUES (5, 'Beige', '#F5F5DC', NULL, 30), (5, 'Blanc', '#FFFFFF', NULL, 20), (5, 'Noir', '#000000', NULL, 10);
+INSERT INTO product_colors (product_id, name, hex_code, image_url, stock) VALUES (6, 'Noir', '#000000', NULL, 15), (6, 'Marron', '#5C3317', NULL, 10);
+INSERT INTO product_colors (product_id, name, hex_code, image_url, stock) VALUES (7, 'Noir', '#000000', NULL, 20), (7, 'Camel', '#C19A6B', NULL, 15), (7, 'Bordeaux', '#800020', NULL, 10);
+INSERT INTO product_colors (product_id, name, hex_code, image_url, stock) VALUES (8, 'Camel', '#C19A6B', NULL, 25), (8, 'Noir', '#000000', NULL, 20), (8, 'Beige', '#F5F5DC', NULL, 10);
+INSERT INTO product_colors (product_id, name, hex_code, image_url, stock) VALUES (9, 'Beige', '#F5F5DC', NULL, 30), (9, 'Noir', '#000000', NULL, 25), (9, 'Marine', '#000080', NULL, 15);
+INSERT INTO product_colors (product_id, name, hex_code, image_url, stock) VALUES (10, 'Rose', '#FFB6C1', NULL, 40), (10, 'Noir', '#000000', NULL, 30), (10, 'Dore', '#FFD700', NULL, 20);
+INSERT INTO product_colors (product_id, name, hex_code, image_url, stock) VALUES (11, 'Noir', '#000000', NULL, 20), (11, 'Camel', '#C19A6B', NULL, 12), (11, 'Gris', '#808080', NULL, 8);
+INSERT INTO product_colors (product_id, name, hex_code, image_url, stock) VALUES (12, 'Marron', '#5C3317', NULL, 15), (12, 'Noir', '#000000', NULL, 10), (12, 'Camel', '#C19A6B', NULL, 5);

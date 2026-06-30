@@ -45,7 +45,7 @@ function AdminDashboard() {
       onSale: product.onSale || false, salePrice: product.salePrice ? product.salePrice.toString() : '', discountPercent: product.discountPercent ? product.discountPercent.toString() : ''
     })
     setSizesForm(product.sizes && product.sizes.length > 0 ? product.sizes.map(s => ({ size: s.size, stock: s.stock.toString() })) : [{ size: '', stock: '' }])
-    setColorsForm(product.colors && product.colors.length > 0 ? product.colors.map(c => ({ name: c.name, hexCode: c.hexCode })) : [{ name: '', hexCode: '' }])
+    setColorsForm(product.colors && product.colors.length > 0 ? product.colors.map(c => ({ name: c.name, hexCode: c.hexCode, stock: c.stock ? c.stock.toString() : '0' })) : [{ name: '', hexCode: '', stock: '' }])
     setEditingProduct(product)
     setShowForm(true)
   }
@@ -68,7 +68,7 @@ function AdminDashboard() {
       salePrice: form.salePrice ? parseFloat(form.salePrice) : null,
       discountPercent: form.discountPercent ? parseInt(form.discountPercent) : null,
       sizes: sizesForm.filter(s => s.size && s.stock).map(s => ({ size: s.size, stock: parseInt(s.stock) })),
-      colors: colorsForm.filter(c => c.name && c.hexCode).map(c => ({ name: c.name, hexCode: c.hexCode }))
+      colors: colorsForm.filter(c => c.name && c.hexCode).map(c => ({ name: c.name, hexCode: c.hexCode, stock: parseInt(c.stock) || 0 }))
     }
     try {
       if (editingProduct) {
@@ -180,7 +180,7 @@ function AdminDashboard() {
                 <div key={i} className="flex items-center gap-1" style={{ marginBottom: '0.5rem' }}>
                   <input className="input" placeholder="Nom (ex: Noir)" value={c.name} onChange={(e) => { const n = [...colorsForm]; n[i].name = e.target.value; setColorsForm(n) }} style={{ flex: 1 }} />
                   <input className="input" type="color" value={c.hexCode || '#000000'} onChange={(e) => { const n = [...colorsForm]; n[i].hexCode = e.target.value; setColorsForm(n) }} style={{ width: '50px', padding: '0.3rem', height: '38px' }} />
-                  <span className="text-xs text-muted" style={{ width: '70px' }}>{c.hexCode}</span>
+                  <input className="input" type="number" placeholder="Stock" value={c.stock || ''} onChange={(e) => { const n = [...colorsForm]; n[i].stock = e.target.value; setColorsForm(n) }} style={{ width: '80px' }} />
                   {colorsForm.length > 1 && <button type="button" onClick={() => setColorsForm(colorsForm.filter((_, j) => j !== i))} style={{ background: 'none', border: 'none', color: 'var(--status-error)', cursor: 'pointer', fontSize: '1.2rem' }}>×</button>}
                 </div>
               ))}

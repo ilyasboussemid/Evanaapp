@@ -17,8 +17,8 @@ function ProductDetail() {
     productService.getById(id)
       .then(res => {
         setProduct(res.data)
-        if (res.data.sizes && res.data.sizes.length > 0) setSelectedSize(res.data.sizes[0])
-        if (res.data.colors && res.data.colors.length > 0) setSelectedColor(res.data.colors[0])
+        if (res.data.sizes && res.data.sizes.length > 0) setSelectedSize(res.data.sizes.find(s => s.stock > 0) || null)
+        if (res.data.colors && res.data.colors.length > 0) setSelectedColor(res.data.colors.find(c => c.stock > 0) || null)
         setLoading(false)
       })
       .catch(() => setLoading(false))
@@ -72,25 +72,37 @@ function ProductDetail() {
           {product.colors && product.colors.length > 0 && (
             <div style={{ marginBottom: '1.5rem' }}>
               <p className="text-sm" style={{ fontWeight: 600, marginBottom: '0.5rem' }}>
-                Couleur : <span className="text-muted">{selectedColor ? selectedColor.name : ''}</span>
+                Couleur : <span className="text-muted">{selectedColor ? `${selectedColor.name} (${selectedColor.stock} en stock)` : ''}</span>
               </p>
               <div className="flex items-center gap-1 flex-wrap">
                 {product.colors.map(color => (
                   <button
                     key={color.id}
-                    onClick={() => setSelectedColor(color)}
-                    title={color.name}
+                    onClick={() => color.stock > 0 && setSelectedColor(color)}
+                    disabled={color.stock === 0}
+                    title={`${color.name}${color.stock === 0 ? ' - Rupture' : ` - ${color.stock} en stock`}`}
                     style={{
                       width: 36, height: 36, borderRadius: '50%',
                       background: color.hexCode,
                       border: selectedColor && selectedColor.id === color.id ? '3px solid var(--accent)' : '2px solid var(--border)',
-                      cursor: 'pointer',
+                      cursor: color.stock === 0 ? 'not-allowed' : 'pointer',
                       boxShadow: selectedColor && selectedColor.id === color.id ? '0 0 0 3px var(--accent-soft)' : 'none',
-                      transition: 'all 0.2s'
+                      opacity: color.stock === 0 ? 0.3 : 1,
+                      transition: 'all 0.2s',
+                      position: 'relative'
                     }}
-                  />
+                  >
+                    {color.stock === 0 && (
+                      <span style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%) rotate(-45deg)', width: '110%', height: '2px', background: '#dc2626' }}></span>
+                    )}
+                  </button>
                 ))}
               </div>
+              {selectedColor && selectedColor.stock <= 5 && selectedColor.stock > 0 && (
+                <p className="text-xs" style={{ color: 'var(--status-warning)', marginTop: '0.4rem', fontWeight: 500 }}>
+                  ⚠ Plus que {selectedColor.stock} en stock pour cette couleur !
+                </p>
+              )}
             </div>
           )}
 
