@@ -13,14 +13,8 @@ function ProductDetail() {
 
   useEffect(() => {
     productService.getById(id)
-      .then(res => {
-        setProduct(res.data)
-        setLoading(false)
-      })
-      .catch(err => {
-        console.error(err)
-        setLoading(false)
-      })
+      .then(res => { setProduct(res.data); setLoading(false) })
+      .catch(() => setLoading(false))
   }, [id])
 
   const handleAddToCart = () => {
@@ -31,53 +25,37 @@ function ProductDetail() {
     }
   }
 
-  if (loading) {
-    return (
-      <div className="container">
-        <div className="loading">
-          <div className="spinner"></div>
-          <p>Chargement...</p>
-        </div>
-      </div>
-    )
-  }
+  if (loading) return <div className="loader"><div style={{ textAlign: 'center' }}><div className="loader-spinner" /><p className="text-muted text-sm" style={{ marginTop: '1rem' }}>Chargement...</p></div></div>
 
-  if (!product) {
-    return (
-      <div className="container">
-        <div className="empty-state">
-          <p>Produit introuvable.</p>
-          <Link to="/" className="btn btn-primary">Retour à l'accueil</Link>
-        </div>
-      </div>
-    )
-  }
+  if (!product) return <div className="container"><div className="empty-state"><p>Produit introuvable.</p><Link to="/" className="btn btn-primary btn-sm" style={{ marginTop: '1rem' }}>Retour</Link></div></div>
 
   return (
-    <div className="container">
-      <Link to="/" className="back-link">&larr; Retour aux produits</Link>
-      <div className="product-detail">
-        <div className="product-detail-image">
-          <img src={product.imageUrl} alt={product.name} />
+    <div className="container" style={{ paddingTop: '2rem', paddingBottom: '3rem' }}>
+      <Link to="/" className="nav-link" style={{ marginBottom: '1.5rem', display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}>← Retour aux produits</Link>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '3rem', marginTop: '1rem' }}>
+        <div>
+          <img src={product.imageUrl} alt={product.name} style={{ width: '100%', height: '450px', objectFit: 'cover', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow)' }} />
         </div>
-        <div className="product-detail-info">
-          <span className="product-category-badge">{product.category}</span>
-          <h1>{product.name}</h1>
-          <p className="product-detail-desc">{product.description}</p>
-          <div className="product-detail-price">{product.price.toFixed(2)} &euro;</div>
-          <div className="product-detail-stock">
+        <div>
+          <span className="badge" style={{ marginBottom: '0.75rem' }}>{product.category}</span>
+          <h1 style={{ marginBottom: '0.5rem' }}>{product.name}</h1>
+          <p className="text-muted" style={{ lineHeight: 1.8, margin: '1rem 0' }}>{product.description}</p>
+          <div style={{ fontFamily: 'var(--font-display)', fontSize: '2.5rem', fontWeight: 700, color: 'var(--accent)', letterSpacing: '-0.04em', margin: '1.5rem 0' }}>
+            {product.price.toFixed(2)} €
+          </div>
+          <div style={{ marginBottom: '1.5rem' }}>
             {product.stock > 0 ? (
-              <span className="in-stock">En stock ({product.stock} disponibles)</span>
+              <span className="pill pill-success">En stock ({product.stock})</span>
             ) : (
-              <span className="out-of-stock">Rupture de stock</span>
+              <span className="pill pill-error">Rupture de stock</span>
             )}
           </div>
           {product.stock > 0 && (
-            <div className="product-detail-actions">
-              <div className="quantity-control">
-                <button onClick={() => setQuantity(Math.max(1, quantity - 1))}>-</button>
-                <span>{quantity}</span>
-                <button onClick={() => setQuantity(Math.min(product.stock, quantity + 1))}>+</button>
+            <div className="flex items-center gap-2">
+              <div style={{ display: 'flex', alignItems: 'center', border: '1.5px solid var(--border)', borderRadius: '999px', overflow: 'hidden' }}>
+                <button onClick={() => setQuantity(Math.max(1, quantity - 1))} style={{ width: 42, height: 42, background: 'var(--surface-muted)', fontSize: '1.2rem', display: 'flex', alignItems: 'center', justifyContent: 'center', border: 'none', cursor: 'pointer' }}>-</button>
+                <span style={{ width: 50, textAlign: 'center', fontWeight: 600, fontFamily: 'var(--font-display)' }}>{quantity}</span>
+                <button onClick={() => setQuantity(Math.min(product.stock, quantity + 1))} style={{ width: 42, height: 42, background: 'var(--surface-muted)', fontSize: '1.2rem', display: 'flex', alignItems: 'center', justifyContent: 'center', border: 'none', cursor: 'pointer' }}>+</button>
               </div>
               <button className="btn btn-primary btn-lg" onClick={handleAddToCart}>
                 {added ? '✓ Ajouté !' : 'Ajouter au panier'}

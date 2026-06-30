@@ -8,9 +8,9 @@ import Confirmation from './pages/Confirmation.jsx'
 
 function App() {
   return (
-    <div className="app">
+    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <Header />
-      <main className="main-content">
+      <main style={{ flex: 1 }}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/product/:id" element={<ProductDetail />} />
@@ -21,7 +21,34 @@ function App() {
       </main>
       <footer className="footer">
         <div className="container">
-          <p>&copy; 2024 Evana - Tous droits réservés</p>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '2rem' }}>
+            <div>
+              <h4 style={{ marginBottom: '0.75rem', fontSize: '1rem' }}>Evana</h4>
+              <p className="text-muted text-sm" style={{ lineHeight: 1.6 }}>
+                Votre marché en ligne pour des produits de qualité au meilleur prix.
+                Livraison rapide et service client réactif.
+              </p>
+            </div>
+            <div>
+              <h4 style={{ marginBottom: '0.75rem', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--muted)' }}>Navigation</h4>
+              <div className="flex flex-col gap-1">
+                <a href="/" className="text-sm">Accueil</a>
+                <a href="/cart" className="text-sm">Mon panier</a>
+              </div>
+            </div>
+            <div>
+              <h4 style={{ marginBottom: '0.75rem', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--muted)' }}>Catégories</h4>
+              <div className="flex flex-col gap-1 text-sm text-muted">
+                <span>Électronique</span>
+                <span>Mode</span>
+                <span>Maison</span>
+                <span>Sport</span>
+              </div>
+            </div>
+          </div>
+          <div style={{ borderTop: '1px solid var(--border)', marginTop: '2rem', paddingTop: '1.5rem', textAlign: 'center' }}>
+            <p className="text-xs text-muted">© 2024 Evana — Tous droits réservés.</p>
+          </div>
         </div>
       </footer>
     </div>
