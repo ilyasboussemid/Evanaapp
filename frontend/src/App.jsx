@@ -6,6 +6,8 @@ import ProductDetail from './pages/ProductDetail.jsx'
 import Cart from './pages/Cart.jsx'
 import Checkout from './pages/Checkout.jsx'
 import Confirmation from './pages/Confirmation.jsx'
+import AdminLogin from './pages/AdminLogin.jsx'
+import AdminDashboard from './pages/AdminDashboard.jsx'
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/confirmation" element={<Confirmation />} />
+          <Route path="/admin" element={<AdminLogin />} />
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
         </Routes>
       </main>
       <footer className="footer">
@@ -35,15 +39,14 @@ function App() {
               <div className="flex flex-col gap-1">
                 <a href="/" className="text-sm">Accueil</a>
                 <a href="/cart" className="text-sm">Mon panier</a>
+                <a href="/admin" className="text-sm">Administration</a>
               </div>
             </div>
             <div>
               <h4 style={{ marginBottom: '0.75rem', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--muted)' }}>Catégories</h4>
               <div className="flex flex-col gap-1 text-sm text-muted">
-                <span>Électronique</span>
-                <span>Mode</span>
-                <span>Maison</span>
-                <span>Sport</span>
+                <span>Chaussures Femmes</span>
+                <span>Sacs Femmes</span>
               </div>
             </div>
           </div>

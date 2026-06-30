@@ -90,13 +90,13 @@ function Checkout() {
             {cartItems.map(item => (
               <div key={item.id} className="flex justify-between text-sm" style={{ padding: '0.3rem 0' }}>
                 <span className="text-muted">{item.name} ×{item.quantity}</span>
-                <span>{(item.price * item.quantity).toFixed(2)} €</span>
+                <span>{(item.price * item.quantity).toFixed(2)} MAD</span>
               </div>
             ))}
           </div>
           <div className="flex justify-between" style={{ fontFamily: 'var(--font-display)', fontSize: '1.2rem', fontWeight: 700, color: 'var(--accent)' }}>
             <span>Total</span>
-            <span>{getCartTotal().toFixed(2)} €</span>
+            <span>{getCartTotal().toFixed(2)} MAD</span>
           </div>
         </div>
       </div>

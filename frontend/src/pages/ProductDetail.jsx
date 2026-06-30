@@ -41,7 +41,7 @@ function ProductDetail() {
           <h1 style={{ marginBottom: '0.5rem' }}>{product.name}</h1>
           <p className="text-muted" style={{ lineHeight: 1.8, margin: '1rem 0' }}>{product.description}</p>
           <div style={{ fontFamily: 'var(--font-display)', fontSize: '2.5rem', fontWeight: 700, color: 'var(--accent)', letterSpacing: '-0.04em', margin: '1.5rem 0' }}>
-            {product.price.toFixed(2)} €
+            {product.price.toFixed(2)} MAD
           </div>
           <div style={{ marginBottom: '1.5rem' }}>
             {product.stock > 0 ? (

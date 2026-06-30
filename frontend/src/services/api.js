@@ -23,4 +23,12 @@ export const orderService = {
   getById: (id) => api.get(`/orders/${id}`)
 }
 
+export const adminService = {
+  login: (username, password) => api.post('/admin/login', { username, password }),
+  getProducts: () => api.get('/admin/products'),
+  createProduct: (product) => api.post('/admin/products', product),
+  updateProduct: (id, product) => api.put(`/admin/products/${id}`, product),
+  deleteProduct: (id) => api.delete(`/admin/products/${id}`)
+}
+
 export default api

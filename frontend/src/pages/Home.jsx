@@ -111,7 +111,7 @@ function Home() {
                     <h4 style={{ marginBottom: '0.35rem', color: 'var(--text)', fontSize: '1rem' }}>{product.name}</h4>
                     <p className="text-muted text-sm" style={{ marginBottom: 'auto', paddingBottom: '1rem', lineHeight: 1.5 }}>{product.shortDescription}</p>
                     <div className="flex items-center justify-between" style={{ borderTop: '1px solid var(--border)', paddingTop: '1rem' }}>
-                      <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.25rem', fontWeight: 700, color: 'var(--accent)', letterSpacing: '-0.03em' }}>{product.price.toFixed(2)} €</span>
+                      <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.25rem', fontWeight: 700, color: 'var(--accent)', letterSpacing: '-0.03em' }}>{product.price.toFixed(2)} MAD</span>
                       <button
                         className="btn btn-primary btn-sm"
                         onClick={(e) => { e.preventDefault(); e.stopPropagation(); addToCart(product) }}

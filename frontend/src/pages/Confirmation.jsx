@@ -36,7 +36,7 @@ function Confirmation() {
               <thead><tr><th>Produit</th><th>Qté</th><th>Prix unit.</th><th>Sous-total</th></tr></thead>
               <tbody>
                 {lastOrder.items.map((item, i) => (
-                  <tr key={i}><td>{item.productName}</td><td>{item.quantity}</td><td>{item.unitPrice.toFixed(2)} €</td><td style={{ fontWeight: 600 }}>{item.subtotal.toFixed(2)} €</td></tr>
+                  <tr key={i}><td>{item.productName}</td><td>{item.quantity}</td><td>{item.unitPrice.toFixed(2)} MAD</td><td style={{ fontWeight: 600 }}>{item.subtotal.toFixed(2)} MAD</td></tr>
                 ))}
               </tbody>
             </table>
@@ -46,7 +46,7 @@ function Confirmation() {
 
       <div className="card-flat flex justify-between items-center" style={{ padding: '1.5rem 2rem', marginBottom: '2rem' }}>
         <span style={{ fontSize: '1.1rem', fontWeight: 600 }}>Total de la commande</span>
-        <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem', fontWeight: 700, color: 'var(--accent)' }}>{lastOrder.totalAmount.toFixed(2)} €</span>
+        <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem', fontWeight: 700, color: 'var(--accent)' }}>{lastOrder.totalAmount.toFixed(2)} MAD</span>
       </div>
 
       <div style={{ textAlign: 'center' }}>
