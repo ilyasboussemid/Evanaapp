@@ -11,6 +11,7 @@ function ProductDetail() {
   const [selectedColor, setSelectedColor] = useState(null)
   const [loading, setLoading] = useState(true)
   const [added, setAdded] = useState(false)
+  const [recommendations, setRecommendations] = useState([])
   const { addToCart } = useCart()
 
   useEffect(() => {
@@ -20,6 +21,11 @@ function ProductDetail() {
         if (res.data.sizes && res.data.sizes.length > 0) setSelectedSize(res.data.sizes.find(s => s.stock > 0) || null)
         if (res.data.colors && res.data.colors.length > 0) setSelectedColor(res.data.colors.find(c => c.stock > 0) || null)
         setLoading(false)
+        // Fetch recommendations (same category, different product)
+        productService.getAll('', res.data.category).then(r => {
+          const recs = (Array.isArray(r.data) ? r.data : []).filter(p => p.id !== res.data.id).slice(0, 4)
+          setRecommendations(recs)
+        })
       })
       .catch(() => setLoading(false))
   }, [id])
@@ -179,6 +185,29 @@ function ProductDetail() {
           )}
         </div>
       </div>
+
+      {/* Recommendations */}
+      {recommendations.length > 0 && (
+        <div style={{ marginTop: '3rem' }}>
+          <h2 style={{ marginBottom: '1.5rem' }}>Vous aimerez aussi</h2>
+          <div className="grid grid-4" style={{ gap: '1rem' }}>
+            {recommendations.map(rec => (
+              <Link key={rec.id} to={`/product/${rec.id}`} style={{ textDecoration: 'none' }}>
+                <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
+                  <img src={rec.imageUrl} alt={rec.name} style={{ width: '100%', height: '150px', objectFit: 'cover' }} />
+                  <div style={{ padding: '0.75rem' }}>
+                    <h4 style={{ fontSize: '0.85rem', marginBottom: '0.25rem' }}>{rec.name}</h4>
+                    <span style={{ fontFamily: 'var(--font-display)', fontSize: '1rem', fontWeight: 700, color: 'var(--accent)' }}>
+                      {rec.onSale ? rec.salePrice.toFixed(2) : rec.price.toFixed(2)} MAD
+                    </span>
+                    {rec.onSale && <span className="text-xs text-muted" style={{ marginLeft: '0.3rem', textDecoration: 'line-through' }}>{rec.price.toFixed(2)}</span>}
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   )
 }

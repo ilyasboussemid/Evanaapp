@@ -1,9 +1,20 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useCart } from '../context/CartContext.jsx'
+import { productService } from '../services/api.js'
 
 function Confirmation() {
   const { lastOrder } = useCart()
+  const [recommendations, setRecommendations] = useState([])
+
+  useEffect(() => {
+    productService.getAll('', '').then(res => {
+      const all = Array.isArray(res.data) ? res.data : []
+      // Show random 4 products as recommendations
+      const shuffled = all.sort(() => 0.5 - Math.random()).slice(0, 4)
+      setRecommendations(shuffled)
+    }).catch(() => {})
+  }, [])
 
   if (!lastOrder) return <div className="container"><div className="empty-state"><p>Aucune commande à afficher.</p><Link to="/" className="btn btn-primary" style={{ marginTop: '1rem' }}>Retour</Link></div></div>
 
@@ -52,6 +63,29 @@ function Confirmation() {
       <div style={{ textAlign: 'center' }}>
         <Link to="/" className="btn btn-primary btn-lg">Continuer mes achats</Link>
       </div>
+
+      {/* Recommendations */}
+      {recommendations.length > 0 && (
+        <div style={{ marginTop: '3rem' }}>
+          <h2 style={{ textAlign: 'center', marginBottom: '1.5rem' }}>Découvrez aussi</h2>
+          <div className="grid grid-4" style={{ gap: '1rem' }}>
+            {recommendations.map(rec => (
+              <Link key={rec.id} to={`/product/${rec.id}`} style={{ textDecoration: 'none' }}>
+                <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
+                  <img src={rec.imageUrl} alt={rec.name} style={{ width: '100%', height: '150px', objectFit: 'cover' }} />
+                  <div style={{ padding: '0.75rem' }}>
+                    <h4 style={{ fontSize: '0.85rem', marginBottom: '0.25rem' }}>{rec.name}</h4>
+                    <span style={{ fontFamily: 'var(--font-display)', fontSize: '1rem', fontWeight: 700, color: 'var(--accent)' }}>
+                      {rec.onSale ? rec.salePrice.toFixed(2) : rec.price.toFixed(2)} MAD
+                    </span>
+                    {rec.onSale && <span className="text-xs text-muted" style={{ marginLeft: '0.3rem', textDecoration: 'line-through' }}>{rec.price.toFixed(2)}</span>}
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   )
 }
