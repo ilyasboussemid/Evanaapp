@@ -194,9 +194,9 @@ function Home() {
                       </div>
                       <button
                         className="btn btn-primary btn-sm"
-                        onClick={(e) => { e.preventDefault(); e.stopPropagation(); addToCart({ ...product, price: product.onSale ? product.salePrice : product.price }) }}
+                        onClick={(e) => { e.preventDefault(); e.stopPropagation(); window.location.href = `/product/${product.id}` }}
                       >
-                        + Panier
+                        Voir +
                       </button>
                     </div>
                   </div>
