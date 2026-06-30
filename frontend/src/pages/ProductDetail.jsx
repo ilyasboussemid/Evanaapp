@@ -15,6 +15,7 @@ function ProductDetail() {
   const { addToCart } = useCart()
 
   useEffect(() => {
+    window.scrollTo(0, 0)
     productService.getById(id)
       .then(res => {
         setProduct(res.data)
@@ -201,10 +202,16 @@ function ProductDetail() {
                       {rec.onSale ? rec.salePrice.toFixed(2) : rec.price.toFixed(2)} MAD
                     </span>
                     {rec.onSale && <span className="text-xs text-muted" style={{ marginLeft: '0.3rem', textDecoration: 'line-through' }}>{rec.price.toFixed(2)}</span>}
+                    <div style={{ marginTop: '0.5rem' }}>
+                      <span className="btn btn-primary btn-sm" style={{ width: '100%', fontSize: '0.75rem' }}>Voir +</span>
+                    </div>
                   </div>
                 </div>
               </Link>
             ))}
+          </div>
+          <div style={{ textAlign: 'center', marginTop: '1.5rem' }}>
+            <Link to="/" className="btn btn-secondary">Voir tous les produits</Link>
           </div>
         </div>
       )}
