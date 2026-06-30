@@ -8,10 +8,8 @@ import java.util.List;
 
 public class OrderRequest {
 
-    @NotBlank(message = "Le prénom est obligatoire")
     private String firstName;
 
-    @NotBlank(message = "Le nom est obligatoire")
     private String lastName;
 
     @NotBlank(message = "Le téléphone est obligatoire")
