@@ -33,6 +33,15 @@ public class Product {
     @Column(nullable = false)
     private Integer stock;
 
+    @Column(name = "on_sale")
+    private Boolean onSale = false;
+
+    @Column(name = "sale_price")
+    private Double salePrice;
+
+    @Column(name = "discount_percent")
+    private Integer discountPercent;
+
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<ProductSize> sizes = new ArrayList<>();
 
@@ -68,6 +77,12 @@ public class Product {
     public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
     public Integer getStock() { return stock; }
     public void setStock(Integer stock) { this.stock = stock; }
+    public Boolean getOnSale() { return onSale; }
+    public void setOnSale(Boolean onSale) { this.onSale = onSale; }
+    public Double getSalePrice() { return salePrice; }
+    public void setSalePrice(Double salePrice) { this.salePrice = salePrice; }
+    public Integer getDiscountPercent() { return discountPercent; }
+    public void setDiscountPercent(Integer discountPercent) { this.discountPercent = discountPercent; }
     public List<ProductSize> getSizes() { return sizes; }
     public void setSizes(List<ProductSize> sizes) { this.sizes = sizes; }
     public List<ProductColor> getColors() { return colors; }

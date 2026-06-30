@@ -173,6 +173,7 @@ function Home() {
                   <div style={{ position: 'relative', height: '200px', overflow: 'hidden' }}>
                     <img src={product.imageUrl} alt={product.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                     <span className="badge badge-sm" style={{ position: 'absolute', top: 12, left: 12 }}>{product.category}</span>
+                    {product.onSale && <span style={{ position: 'absolute', top: 12, right: 12, padding: '0.25rem 0.7rem', borderRadius: '999px', fontSize: '0.7rem', fontWeight: 700, background: '#dc2626', color: 'white' }}>-{product.discountPercent}%</span>}
                   </div>
                   <div style={{ padding: '1.25rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
                     <h4 style={{ marginBottom: '0.35rem', color: 'var(--text)', fontSize: '1rem' }}>{product.name}</h4>
@@ -185,10 +186,15 @@ function Home() {
                       </div>
                     )}
                     <div className="flex items-center justify-between" style={{ borderTop: '1px solid var(--border)', paddingTop: '1rem', marginTop: 'auto' }}>
-                      <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.25rem', fontWeight: 700, color: 'var(--accent)', letterSpacing: '-0.03em' }}>{product.price.toFixed(2)} MAD</span>
+                      <div>
+                        <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.15rem', fontWeight: 700, color: 'var(--accent)', letterSpacing: '-0.03em' }}>
+                          {product.onSale ? product.salePrice.toFixed(2) : product.price.toFixed(2)} MAD
+                        </span>
+                        {product.onSale && <span className="text-xs text-muted" style={{ marginLeft: '0.4rem', textDecoration: 'line-through' }}>{product.price.toFixed(2)}</span>}
+                      </div>
                       <button
                         className="btn btn-primary btn-sm"
-                        onClick={(e) => { e.preventDefault(); e.stopPropagation(); addToCart(product) }}
+                        onClick={(e) => { e.preventDefault(); e.stopPropagation(); addToCart({ ...product, price: product.onSale ? product.salePrice : product.price }) }}
                       >
                         + Panier
                       </button>

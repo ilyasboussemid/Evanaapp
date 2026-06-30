@@ -55,7 +55,15 @@ function ProductDetail() {
           <h1 style={{ marginBottom: '0.5rem' }}>{product.name}</h1>
           <p className="text-muted" style={{ lineHeight: 1.8, margin: '1rem 0' }}>{product.description}</p>
           <div style={{ fontFamily: 'var(--font-display)', fontSize: '1.75rem', fontWeight: 700, color: 'var(--accent)', letterSpacing: '-0.04em', margin: '1.5rem 0' }}>
-            {product.price.toFixed(2)} MAD
+            {product.onSale ? (
+              <>
+                {product.salePrice.toFixed(2)} MAD
+                <span className="text-muted" style={{ fontSize: '1rem', marginLeft: '0.75rem', textDecoration: 'line-through', fontWeight: 500 }}>{product.price.toFixed(2)} MAD</span>
+                <span style={{ marginLeft: '0.75rem', padding: '0.25rem 0.7rem', borderRadius: '999px', fontSize: '0.75rem', fontWeight: 700, background: '#dc2626', color: 'white' }}>-{product.discountPercent}%</span>
+              </>
+            ) : (
+              <>{product.price.toFixed(2)} MAD</>
+            )}
           </div>
 
           {/* Colors */}

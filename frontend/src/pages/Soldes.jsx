@@ -12,12 +12,7 @@ function Soldes() {
     productService.getAll('', '')
       .then(res => {
         const allProducts = Array.isArray(res.data) ? res.data : []
-        // Products on sale: simulate 30% discount on selected products (IDs 1, 3, 4, 7, 10, 12)
-        const saleIds = [1, 3, 4, 7, 10, 12]
-        const saleProducts = allProducts
-          .filter(p => saleIds.includes(p.id))
-          .map(p => ({ ...p, originalPrice: p.price, salePrice: Math.round(p.price * 0.7), discount: 30 }))
-        setProducts(saleProducts)
+        setProducts(allProducts.filter(p => p.onSale))
         setLoading(false)
       })
       .catch(() => setLoading(false))
@@ -33,12 +28,14 @@ function Soldes() {
       </section>
 
       <div className="container" style={{ paddingBottom: '3rem' }}>
+        <p className="text-sm text-muted" style={{ marginBottom: '1rem' }}>
+          {products.length} produit{products.length > 1 ? 's' : ''} en promotion
+        </p>
+
         {loading ? (
           <div className="loader"><div style={{ textAlign: 'center' }}><div className="loader-spinner" /><p className="text-muted text-sm" style={{ marginTop: '1rem' }}>Chargement...</p></div></div>
         ) : products.length === 0 ? (
-          <div className="empty-state">
-            <p>Aucun produit en solde actuellement.</p>
-          </div>
+          <div className="empty-state"><p>Aucun produit en solde actuellement.</p></div>
         ) : (
           <div className="grid grid-3">
             {products.map(product => (
@@ -46,7 +43,7 @@ function Soldes() {
                 <div className="card" style={{ height: '100%', padding: 0, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
                   <div style={{ position: 'relative', height: '200px', overflow: 'hidden' }}>
                     <img src={product.imageUrl} alt={product.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                    <span style={{ position: 'absolute', top: 12, left: 12, padding: '0.35rem 0.85rem', borderRadius: '999px', fontSize: '0.75rem', fontWeight: 700, background: '#dc2626', color: 'white' }}>-{product.discount}%</span>
+                    <span style={{ position: 'absolute', top: 12, left: 12, padding: '0.35rem 0.85rem', borderRadius: '999px', fontSize: '0.75rem', fontWeight: 700, background: '#dc2626', color: 'white' }}>-{product.discountPercent}%</span>
                   </div>
                   <div style={{ padding: '1.25rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
                     <h4 style={{ marginBottom: '0.35rem', color: 'var(--text)', fontSize: '1rem' }}>{product.name}</h4>
@@ -60,8 +57,8 @@ function Soldes() {
                     )}
                     <div className="flex items-center justify-between" style={{ borderTop: '1px solid var(--border)', paddingTop: '1rem', marginTop: 'auto' }}>
                       <div>
-                        <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.25rem', fontWeight: 700, color: 'var(--accent)', letterSpacing: '-0.03em' }}>{product.salePrice.toFixed(2)} MAD</span>
-                        <span className="text-sm text-muted" style={{ marginLeft: '0.5rem', textDecoration: 'line-through' }}>{product.originalPrice.toFixed(2)}</span>
+                        <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.15rem', fontWeight: 700, color: 'var(--accent)', letterSpacing: '-0.03em' }}>{product.salePrice.toFixed(2)} MAD</span>
+                        <span className="text-xs text-muted" style={{ marginLeft: '0.4rem', textDecoration: 'line-through' }}>{product.price.toFixed(2)}</span>
                       </div>
                       <button
                         className="btn btn-primary btn-sm"
